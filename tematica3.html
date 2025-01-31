@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lengua</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+  <header>
+    <h1>Lengua</h1>
+    <nav>
+      <ul>
+        <li><a href="paginaconcurso.html" class="boton">Volver al Menú</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="formulario">
+      <h2>Sube tu archivo</h2>
+      <p>Usa el siguiente formulario para cargar tus archivos relacionados con Lengua.</p>
+      <form class="formulario" action="subir.php" method="POST" enctype="multipart/form-data">
+        <label for="archivo">Selecciona un archivo:</label>
+        <input type="file" id="archivo" name="archivo">
+        <button type="submit">Subir Archivo</button>
+      </form>
+    </section>
+
+    
+    <section class="juego-pong">
+      <h2 class="juega">Juega a Pong</h2>
+      <img src="carachill.png" alt="">
+      <canvas id="pong" width="600" height="400"></canvas>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; no copieis perros</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const audio = new Audio('Hog rider sound.mp3'); 
+      const inputArchivo = document.getElementById('archivo');
+      inputArchivo.addEventListener('change', function() {
+        audio.play();
+      });
+    });
+
+    
+    const canvas = document.getElementById("pong");
+    const ctx = canvas.getContext("2d");
+
+    const paddleWidth = 10, paddleHeight = 100;
+    let ballRadius = 10;
+    let upArrowPressed = false, downArrowPressed = false;
+    let playerY = (canvas.height - paddleHeight) / 2, playerSpeed = 5;
+    let aiY = (canvas.height - paddleHeight) / 2, aiSpeed = 4;
+
+    let ballX = canvas.width / 2, ballY = canvas.height / 2;
+    let ballSpeedX = 5, ballSpeedY = 5;
+
+    function drawBall() {
+      ctx.beginPath();
+      ctx.arc(ballX, ballY, ballRadius, 0, Math.PI * 2);
+      ctx.fillStyle = "#FFF";
+      ctx.fill();
+      ctx.closePath();
+    }
+
+    function drawPaddles() {
+      ctx.beginPath();
+      ctx.rect(0, playerY, paddleWidth, paddleHeight); 
+      ctx.rect(canvas.width - paddleWidth, aiY, paddleWidth, paddleHeight); 
+      ctx.fillStyle = "#FFF";
+      ctx.fill();
+      ctx.closePath();
+    }
+
+    function movePaddles() {
+      if (upArrowPressed && playerY > 0) {
+        playerY -= playerSpeed;
+      }
+      if (downArrowPressed && playerY + paddleHeight < canvas.height) {
+        playerY += playerSpeed;
+      }
+    }
+
+    function moveBall() {
+      ballX += ballSpeedX;
+      ballY += ballSpeedY;
+
+      if (ballY + ballRadius > canvas.height || ballY - ballRadius < 0) {
+        ballSpeedY = -ballSpeedY;
+      }
+
+      if (ballX - ballRadius < paddleWidth && ballY > playerY && ballY < playerY + paddleHeight) {
+        ballSpeedX = -ballSpeedX;
+      }
+      if (ballX + ballRadius > canvas.width - paddleWidth && ballY > aiY && ballY < aiY + paddleHeight) {
+        ballSpeedX = -ballSpeedX;
+      }
+
+      if (ballX - ballRadius < 0 || ballX + ballRadius > canvas.width) {
+        ballX = canvas.width / 2;
+        ballY = canvas.height / 2;
+        ballSpeedX = -ballSpeedX;
+      }
+    }
+
+    function moveAI() {
+      if (aiY + paddleHeight / 2 < ballY) {
+        aiY += aiSpeed;
+      } else {
+        aiY -= aiSpeed;
+      }
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height); 
+      drawBall();
+      drawPaddles();
+      moveBall();
+      movePaddles();
+      moveAI();
+    }
+
+    
+    document.addEventListener("keydown", function(event) {
+      if (event.key == "ArrowUp") {
+        upArrowPressed = true;
+        event.preventDefault(); 
+      }
+      if (event.key == "ArrowDown") {
+        downArrowPressed = true;
+        event.preventDefault(); 
+      }
+    });
+
+    document.addEventListener("keyup", function(event) {
+      if (event.key == "ArrowUp") {
+        upArrowPressed = false;
+      }
+      if (event.key == "ArrowDown") {
+        downArrowPressed = false;
+      }
+    });
+
+    setInterval(draw, 1000 / 60);
+  </script>
+</body>
+</html>
+

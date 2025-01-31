@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menú de Temáticas</title>
+  <link rel="stylesheet" href="estilo.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lavishly+Yours&display=swap" rel="stylesheet">
+</head>
+<body>
+ 
+  <div id="loader" class="loader-overlay">
+    <div class="loader"></div>
+  </div>
+
+  <header>
+    <h1>Bienvenido a la página de los pibardos</h1>
+    <h2>Aquí podrás compartir tus apuntes con tus compañeros y gente que esté pasando por el mismo infierno que tú... Bachillerato</h2>
+    <ol>Consejos y formas de usar esta página:
+      <li>Ten una letra legible, solo un 1% entiende jeroglíficos.</li>
+      <li>Sigue la regla 1</li>
+    </ol>
+    <nav>
+      <ul>
+        <li class="mate"><a href="tematica1.html" class="boton">Matemáticas</a></li>
+        <li class="fisica"><a href="tematica2.html" class="boton">Física</a></li>
+        <li class="lengua"><a href="tematica3.html" class="boton">Lengua</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <article>
+    <h2>Cosas que te pueden interesar:</h2>
+
+    <div class="division1">
+      <h3>Noticias PAU</h3>
+      <p>Aquí puedes ver cualquier tipo de contenido, como texto, imágenes o enlaces.</p>
+      <iframe src="https://www.elmundo.es/espana/ebau.html" width="100%" height="600px" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+    <div class="division2">
+      <h3>Noticias de Clash Royale</h3>
+      <p>Lo verdaderamente importante para los pibes</p>
+      <iframe src="https://www.eldesmarque.com/temas/clash-royale/" width="100%" height="600px" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </article>
+
+  <footer>
+    <p>&copy; No copiéis, perros</p>
+  </footer>
+
+  <script>
+    
+    window.addEventListener('load', function() {
+      
+      document.getElementById('loader').style.opacity = 0;
+
+      
+      setTimeout(function() {
+        document.getElementById('loader').style.display = 'none';
+      }, 500);
+    });
+  </script>
+</body>
+</html>
